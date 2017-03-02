@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script src="js/vue.js" /></script>
+	<script src="js/dragula.js"></script>
+	<script src="js/vue-dragula.js"></script>
+	<script src="js/vue-context-menu.js"></script>
+	<script src="js/index.js" /></script>
+
+	<link rel="stylesheet" href="css/index.css">
+	<link rel="stylesheet" href="css/dragula.css">
+</head>
+<body>
+<div class="wrapper" id="app">
+	<div class="container" v-dragula="colOne" bag="first-bag">
+		<div v-for="text in colOne" :key="text" @contextmenu.prevent="$refs.ctx.open($event, {text: text})">{{text}}</div>
+	</div>
+	<div class="container" v-dragula="colTwo" bag="second-bag">
+		<div v-for="text in colTwo" :key="text" @contextmenu.prevent="$refs.ctx.open($event, {text: text})">{{text}}</div>
+	</div>
+	<div class="container" v-dragula="colOneBis" bag="first-bag">
+		<div v-for="text in colOneBis" :key="text">{{text}}</div>
+	</div>
+	<div class="container" v-dragula="colTwoBis" bag="second-bag">
+		<div v-for="text in colTwoBis" :key="text">{{text}}</div>
+	</div>
+	<context-menu id="testingctx" ref="ctx" @ctx-open="onCtxOpen" @ctx-cancel="resetCtxLocals" @ctx-close="onCtxClose">
+		<li class="ctx-header">{{menuData.text}}</li>
+		<li class="ctx-item" @click="alertClick($event, menuData)">option one</li>
+		<li class="ctx-item disabled">option two (disabled)</li>
+		<li class="ctx-item" @click="logClick($event, menuData)">add to log</li>
+	</context-menu>
+</div>
+</body>
+</html>

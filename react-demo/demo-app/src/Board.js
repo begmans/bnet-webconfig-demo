@@ -32,13 +32,7 @@ class Board extends Component {
 	}
 
 	render() {
-		const lists = function(lists){
-			var res = [];
-			for (let i in lists) {
-					res.push(<List key={i} header={i} items={lists[i]}/>);
-			}
-			return res;
-		}(this.state.lists);
+		const lists = Object.entries(this.state.lists).map(([key, value]) => <List key={key} header={key} items={value}/>);
 
 		return (
 			<div className="board">
